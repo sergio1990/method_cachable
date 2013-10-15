@@ -9,9 +9,9 @@ module MethodCachable
 
   included do
     def clear_cache
-      Cachable.flush_cache cache_list_key
-      Cachable.flush_cache "cache_list_key:#{self.class.name}"
-      Cachable.flush_cache "cache_list_key:#{self.class.superclass.name}"
+      flush_cache cache_list_key
+      flush_cache "cache_list_key:#{self.class.name}"
+      flush_cache "cache_list_key:#{self.class.superclass.name}"
     end
 
     def cache_list_key
@@ -36,7 +36,7 @@ module MethodCachable
 
           def #{method}(*args)
             sig = createsig(args || self.id)
-            Cachable.with_env \"#{name}:#{method}:\#{self.id}:\#{sig}\", cache_list_key do
+            with_env \"#{name}:#{method}:\#{self.id}:\#{sig}\", cache_list_key do
               old_#{method}(*args)
             end
           end
