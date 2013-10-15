@@ -50,7 +50,7 @@ end
 
 ### Cache storage
 
-For storing cached methods gem using *Rails.cache*. Therefore you must set in rails application config file *cache_store* option. I highly recommend using the couple of *memcached*+*dalli* because they work very quickly. For this, you must add gem dalli to your Gemfile:
+For storing cached methods gem using *Rails.cache*. Therefore you must set in rails application config file *cache_store* option. I highly recommend using the couple of *memcached*+*dalli* because memcached store information in memory and the best solution to integrate it to rails app is dalli. For this, you must add gem dalli to your Gemfile:
 
 ```ruby
 gem 'dalli'
@@ -60,7 +60,7 @@ And then configurate it in *production.rb*:
 
 ```ruby
 YourApp::Application.configure do
-	config.cache_store = :dalli_store, { namespace: :world_try, expires_in: 2.hours, compress: true }
+	config.cache_store = :dalli_store, { namespace: :your_namespace, expires_in: 2.hours, compress: true }
 	# Rest of configuration
 end
 ```
